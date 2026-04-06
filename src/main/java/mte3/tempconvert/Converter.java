@@ -17,17 +17,26 @@ public class Converter {
         
         try(Scanner scanner = new Scanner(System.in)) {
             System.out.print("Please enter temperature (for conversion): ");
-
+            double ImputTemp = scanner.nextDouble(); 
+            
             // (part 1) conversion from C to F
+            CelsiusToFahrenheit CTF = new CelsiusToFahrenheit();
+            double fahrinheit = CTF.convert(ImputTemp);
             
+            // (part 2) conversion from F to C // using an Anonymous class
+            TempConvert FTC = new TempConvert() {
+                @Override
+                public double convert(double temp) {
+                    return (temp - 32) * 5 / 9;
+                }
+            };
+            double celsius = FTC.convert(ImputTemp);
             
-            // (part 2) conversion from F to C
-            
-            
-            // (part 3) conversion from F to K
-            
+            // (part 3) conversion from F to K // using lambda
+            TempConvert FTK = (temp) -> (temp - 32) * 5 / 9 + 273.15;
+            double kelvin = FTK.convert(ImputTemp);
 
-
+            System.out.printf("C to F: %.3f, F to C: %.3f, F to K: %.3f%n", fahrinheit, celsius, kelvin);
         }  // try { } block closed
 
     } // main () method closed
