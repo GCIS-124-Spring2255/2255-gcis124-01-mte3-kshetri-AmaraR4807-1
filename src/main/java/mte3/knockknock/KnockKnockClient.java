@@ -24,9 +24,7 @@ public class KnockKnockClient {
 
     public static void joke(String who,String punchLine) throws IOException {
         try (Socket socket = new Socket(SERVER, PORT);
-            Scanner scan = new Scanner(System.in)
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Scanner scan = new Scanner(socket.getInputStream());
         
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ) {
@@ -41,10 +39,9 @@ public class KnockKnockClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         ss.close();
         socket.close();
-        in.close();
         writer.close();
     } // joke() method closed
 

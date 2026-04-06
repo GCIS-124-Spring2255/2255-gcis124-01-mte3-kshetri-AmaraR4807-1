@@ -24,19 +24,17 @@ public class KnockKnockServer {
     public static void main(String args[]) throws IOException {
         try (ServerSocket ss = new ServerSocket(PORT);
             Socket socket = ss.accept();
-            Scanner scan = new Scanner(System.in)
+            Scanner scan = new Scanner(socket.getInputStream());
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         ) {
-            msg1 = sendAndReceive(writer, "Knock, Knock", scan);
+            sendAndReceive(writer, "Knock, Knock", scan);
             receiveAndSend(scan, "Who's there?", writer, true);
         
-            msg2 = sendAndReceive(writer, who, scan);
+            sendAndReceive(writer, who, scan);
             receiveAndSend(scan, who + ", Who?", writer, true);
         
-            msg3 = sendAndReceive(writer, punchLine, scan);
+            sendAndReceive(writer, punchLine, scan);
             receiveAndSend(scan, "Haha, nice one!", writer, true);
         } catch (IOException e) {
             e.printStackTrace();
